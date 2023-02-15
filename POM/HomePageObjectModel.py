@@ -20,6 +20,7 @@ class HomePage:
         self.TodayDate = page.get_by_role("button", name=today.strftime("%B %d, %Y"))
         self.PasswordField = page.get_by_label("Password*")
         self.SubmitBtn = page.get_by_test_id("TestId__SignupButton")
+        self.SignUpSuccessLabel = page.get_by_text("SignUp Successfully")
         self.MyAccountLabel = page.get_by_role("heading", name="My Account")
 
 

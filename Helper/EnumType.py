@@ -1,5 +1,4 @@
 from enum import StrEnum
-import string
 
 
 class TheEnum(StrEnum):

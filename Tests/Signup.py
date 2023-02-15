@@ -7,7 +7,7 @@ import time
 
 
 def run(playwright: Playwright) -> None:
-    # Configurations
+    # ====Configurations==== #
 
     # Reading data from config file
     configs = Properties()
@@ -18,6 +18,8 @@ def run(playwright: Playwright) -> None:
     # Getting current timestamp
     currentTimeStamp = str(time.time())
 
+    # ====User Journey==== #
+
     browser = playwright.chromium.launch(headless=False, slow_mo=500)
     # Opening the browser
     context = browser.new_context()
@@ -27,7 +29,7 @@ def run(playwright: Playwright) -> None:
     # Taking instance of the homepage
     homepage = HomePage(page)
 
-    # User journey
+    # Choosing Kuwait operation
     homepage.OPS.click()
 
     # Open Login page
@@ -53,7 +55,9 @@ def run(playwright: Playwright) -> None:
     homepage.PasswordField.click()
     homepage.PasswordField.fill(configs.get("password").data)
     homepage.SubmitBtn.click()
-    expect(homepage.MyAccountLabel).to_be_visible()
+
+    expect(homepage.SignUpSuccessLabel).to_be_visible()
+    print("==== TEST PASSED =====")
 
     # Closing the browser
     context.close()
