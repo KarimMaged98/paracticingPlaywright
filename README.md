@@ -1,3 +1,3 @@
 # paracticingPlaywright
 
-A simple demoe for paracticing Playwright with python.
+A simple demo for paracticing Playwright with python.
