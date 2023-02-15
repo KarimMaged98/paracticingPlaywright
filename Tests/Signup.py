@@ -42,14 +42,14 @@ def run(playwright: Playwright) -> None:
 
     # Fill the form
     homepage.EmailField.click()
-    homepage.EmailField.fill(configs.get("email").data + currentTimeStamp[13:17] + configs.get("domain").data)
+    homepage.EmailField.fill(configs.get("email").data + currentTimeStamp[6:10] + configs.get("domain").data)
     homepage.FirstNameField.click()
     homepage.FirstNameField.fill(configs.get("firstName").data)
     homepage.SecondNameField.click()
     homepage.SecondNameField.fill(configs.get("lastName").data)
     homepage.GenderMaleRadioButton.check()
     homepage.PhoneNumberField.click()
-    homepage.PhoneNumberField.fill(configs.get("phoneNumber").data + currentTimeStamp[12:17])
+    homepage.PhoneNumberField.fill(configs.get("phoneNumber").data + currentTimeStamp[5:10])
     homepage.DatePicker.click()
     homepage.TodayDate.click()
     homepage.PasswordField.click()
