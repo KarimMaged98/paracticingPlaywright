@@ -2,10 +2,22 @@ from playwright.sync_api import Playwright, sync_playwright, expect
 from Helper import EnumType
 from Helper.EnumType import TheEnum
 from POM.HomePageObjectModel import HomePage
+from jproperties import Properties
+import time
 
-# Hello Prashant, this is the test that I want you to review, The error comes in line number 15
 
 def run(playwright: Playwright) -> None:
+    # Configurations
+
+    # Reading data from config file
+    configs = Properties()
+    with open('/Users/karimmaged/PycharmProjects/paracticingPlaywright/Config/userData.properties',
+              'rb') as config_file:
+        configs.load(config_file)
+
+    # Getting current timestamp
+    currentTimeStamp = str(time.time())
+
     browser = playwright.chromium.launch(headless=False, slow_mo=500)
     # Opening the browser
     context = browser.new_context()
@@ -14,26 +26,35 @@ def run(playwright: Playwright) -> None:
     page.goto(EnumType.navigation(TheEnum.siteStage))
     # Taking instance of the homepage
     homepage = HomePage(page)
+
     # User journey
     homepage.OPS.click()
+
+    # Open Login page
     homepage.LoginBtn.click()
+    expect(homepage.LoginLabel).to_be_visible()
+
+    # Open Sign up page
     homepage.RegisterBtn.click()
+    expect(homepage.RegisterLabel).to_be_visible()
+
+    # Fill the form
     homepage.EmailField.click()
-    homepage.EmailField.fill("test2@test.test")
+    homepage.EmailField.fill(configs.get("email").data + currentTimeStamp[13:17] + configs.get("domain").data)
     homepage.FirstNameField.click()
-    homepage.FirstNameField.fill("test")
+    homepage.FirstNameField.fill(configs.get("firstName").data)
     homepage.SecondNameField.click()
-    homepage.SecondNameField.fill("test")
+    homepage.SecondNameField.fill(configs.get("lastName").data)
     homepage.GenderMaleRadioButton.check()
     homepage.PhoneNumberField.click()
-    homepage.PhoneNumberField.fill("909090909")
+    homepage.PhoneNumberField.fill(configs.get("phoneNumber").data + currentTimeStamp[12:17])
     homepage.DatePicker.click()
     homepage.TodayDate.click()
     homepage.PasswordField.click()
-    homepage.PasswordField.fill("testtest")
+    homepage.PasswordField.fill(configs.get("password").data)
     homepage.SubmitBtn.click()
-    # Assertions
     expect(homepage.MyAccountLabel).to_be_visible()
+
     # Closing the browser
     context.close()
     browser.close()
