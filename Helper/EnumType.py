@@ -22,5 +22,3 @@ def navigation(type: TheEnum) -> StrEnum:
     elif type == TheEnum.hubStage:
         return TheEnum.hubStage
 
-
-print(navigation(TheEnum.siteStage))
