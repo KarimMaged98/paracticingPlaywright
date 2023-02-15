@@ -1,0 +1,5 @@
+*For parallel execution:
+pytest -n auto
+
+*For html reporter
+remote config flags

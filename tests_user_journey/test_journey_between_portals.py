@@ -4,7 +4,7 @@ from Helper.EnumType import TheEnum
 
 
 # This test for navigating between different portals using the enum (NOT IMPORTANT)
-def run(playwright: Playwright) -> None:
+def test_run(playwright: Playwright) -> None:
     browser = playwright.chromium.launch(headless=False, slow_mo=500)
     context = browser.new_context()
     page = context.new_page()
@@ -13,7 +13,3 @@ def run(playwright: Playwright) -> None:
     page.close()
     context.close()
     browser.close()
-
-
-with sync_playwright() as playwright:
-    run(playwright)

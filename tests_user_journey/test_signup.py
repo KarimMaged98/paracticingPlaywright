@@ -6,16 +6,19 @@ from jproperties import Properties
 import time
 
 
-def run(playwright: Playwright) -> None:
+def test_user_registration(playwright: Playwright) -> None:
 
     # ======Configurations====== #
+
     # Reading data from config file
     configs = Properties()
     with open('/Users/karimmaged/PycharmProjects/paracticingPlaywright/Config/userData.properties',
               'rb') as config_file:
         configs.load(config_file)
+
     # Getting current timestamp
     currentTimeStamp = str(time.time())
+
     # Browser configurations
     browser = playwright.chromium.launch(headless=False, slow_mo=500)
     context = browser.new_context()
@@ -63,7 +66,3 @@ def run(playwright: Playwright) -> None:
     # Closing the browser
     context.close()
     browser.close()
-
-
-with sync_playwright() as playwright:
-    run(playwright)
