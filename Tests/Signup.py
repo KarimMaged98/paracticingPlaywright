@@ -7,25 +7,26 @@ import time
 
 
 def run(playwright: Playwright) -> None:
-    # ====Configurations==== #
 
+    # ======Configurations====== #
     # Reading data from config file
     configs = Properties()
     with open('/Users/karimmaged/PycharmProjects/paracticingPlaywright/Config/userData.properties',
               'rb') as config_file:
         configs.load(config_file)
-
     # Getting current timestamp
     currentTimeStamp = str(time.time())
-
-    # ====User Journey==== #
-
+    # Browser configurations
     browser = playwright.chromium.launch(headless=False, slow_mo=500)
-    # Opening the browser
     context = browser.new_context()
     page = context.new_page()
+    page.set_viewport_size({"width": 1728, "height": 1117})
+
+    # ======User Journey====== #
+
     # Navigating to the staging portal using enum flag
     page.goto(EnumType.navigation(TheEnum.siteStage))
+
     # Taking instance of the homepage
     homepage = HomePage(page)
 
