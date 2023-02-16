@@ -6,26 +6,20 @@ from jproperties import Properties
 import time
 
 
-def test_user_registration(playwright: Playwright) -> None:
+def test_user_registration(set_up) -> None:
 
-    # ======Configurations====== #
+    # =========TestConfigurations========= #
 
-    # Reading data from config file
+    # **Variables** #
+    currentTimeStamp = str(time.time())
+    page = set_up
+    # **Reading data from config file** #
     configs = Properties()
     with open('/Users/karimmaged/PycharmProjects/paracticingPlaywright/Config/userData.properties',
               'rb') as config_file:
         configs.load(config_file)
 
-    # Getting current timestamp
-    currentTimeStamp = str(time.time())
-
-    # Browser configurations
-    browser = playwright.chromium.launch(headless=False, slow_mo=500)
-    context = browser.new_context()
-    page = context.new_page()
-    page.set_viewport_size({"width": 1728, "height": 1117})
-
-    # ======User Journey====== #
+    # ========User Journey======== #
 
     # Navigating to the staging portal using enum flag
     page.goto(EnumType.navigation(TheEnum.siteStage))
@@ -62,7 +56,3 @@ def test_user_registration(playwright: Playwright) -> None:
 
     expect(homepage.SignUpSuccessLabel).to_be_visible()
     print("  ==== TEST PASSED =====")
-
-    # Closing the browser
-    context.close()
-    browser.close()
