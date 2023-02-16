@@ -61,7 +61,7 @@ def test_user_registration(playwright: Playwright) -> None:
     homepage.SubmitBtn.click()
 
     expect(homepage.SignUpSuccessLabel).to_be_visible()
-    print("==== TEST PASSED =====")
+    print("  ==== TEST PASSED =====")
 
     # Closing the browser
     context.close()
